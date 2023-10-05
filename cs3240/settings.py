@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from boto.s3.connection import S3Connection
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,10 @@ SECRET_KEY = 'django-insecure-66r*p82(2+tl&ft!)1&4v2n_48p7bvfj(!5hi=szk378bjur+!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['fast-basin-03897-89ce67114206.herokuapp.com']
+ALLOWED_HOSTS = [
+    'fast-basin-03897-89ce67114206.herokuapp.com',
+    '127.0.0.1',
+    ]
 
 
 # Application definition
@@ -135,12 +139,18 @@ AUTHENTICATION_BACKENDS = [
         'allauth.account.auth_backends.AuthenticationBackend',
         ]
 
+s3 = S3Connection(os.environ['CLIENT_ID'], os.environ['CLIENT_SECRET'])
+
 SOCIALACCOUNT_PROVIDERS = {
         'google': {
             'SCOPE': [
                 'profile',
                 'email',
                 ],
+            'APP': {
+                'client_id': os.environ['CLIENT_ID'],
+                'secret': os.environ['CLIENT_SECRET'],
+        },       
             'AUTH_PARAMS': {
                 'access_type': 'online',
                 }
