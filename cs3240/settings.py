@@ -139,7 +139,9 @@ AUTHENTICATION_BACKENDS = [
         'allauth.account.auth_backends.AuthenticationBackend',
         ]
 
-s3 = S3Connection(os.environ['CLIENT_ID'], os.environ['CLIENT_SECRET'])
+# either the id is set through heroku or through the local environment
+if 'CLIENT_ID' not in os.environ:
+    s3 = S3Connection(os.environ['CLIENT_ID'], os.environ['CLIENT_SECRET'])
 
 SOCIALACCOUNT_PROVIDERS = {
         'google': {
@@ -148,8 +150,8 @@ SOCIALACCOUNT_PROVIDERS = {
                 'email',
                 ],
             'APP': {
-                'client_id': os.environ['CLIENT_ID'],
-                'secret': os.environ['CLIENT_SECRET'],
+                'client_id': '267309289994-tdla7h2ifosne1venh34itj2dd4c3ata.apps.googleusercontent.com',
+                'secret': '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',
         },       
             'AUTH_PARAMS': {
                 'access_type': 'online',
