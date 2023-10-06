@@ -9,5 +9,5 @@ __Computing ID:__
 
 
 
-___Setting System Environment Variables in a Python Virtual Environment___
+__Setting System Environment Variables in a Python Virtual Environment__
 Open the venv/bin/activate file in your text editor of choice. At the bottom of the file, add `export CLIENT_ID=YOUR_CLIENT_ID` and `export CLIENT_SECRET=YOUR_CLIENT_SECRET`, with the actual keys being taken from the Google Cloud Console credentials.
