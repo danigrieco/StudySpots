@@ -4,9 +4,12 @@
         <h1>CS3240 Project</h1>
         {% if user.is_authenticated %}
         <p>Welcome, {{ user.username }}!</p>
-        {% for group in user.groups.all %}
-        <p>You are in group {{ group }}.</p>
-        {% endfor %}
+            {% for group in user.groups.all %}
+                <p>You are in group {{ group }}.</p>
+                {% if group.name == 'verifier' %}
+                    <a href="approval/">click here to see submissions to approve</a>
+                {% endif %}
+            {% endfor %}
         {% else %}
         <a href="{% provider_login_url 'google' %}">Login With Google</a>
         {% endif %}

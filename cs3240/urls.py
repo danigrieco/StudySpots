@@ -25,4 +25,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view()),
     path('admin/', admin.site.urls),
+    path('approval/',TemplateView.as_view(template_name='approval.html')),
 ]
