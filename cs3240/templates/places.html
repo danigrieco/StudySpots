@@ -1,0 +1,27 @@
+{% load socialaccount %}
+<html>
+    <body>
+        <h1>Approved Spots</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for place in places_list %}
+            {% if place.admin_approved %}
+            <tr>
+                <td>{{ place.title }}</td>
+                <td>
+                    {{ place.details }}
+                </td>
+                </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </body>
+
+</html>

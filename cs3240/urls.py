@@ -28,5 +28,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view()),
     path('admin/', admin.site.urls),
-    path('approval/',views.ApprovalView.as_view(), name="approval"),
+    path('approval/',views.admin_approval, name="approval"),
+    path('places/',views.PlacesView.as_view(), name="places"),
 ]

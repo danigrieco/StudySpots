@@ -2,6 +2,8 @@
 <html>
     <body>
         <h1>Approved Spots</h1>
+        <form action = "" method="post">
+            {% csrf_token %}
         <table class="table">
             <thead>
                 <tr>
@@ -16,11 +18,11 @@
                 <td>
                     {% if place.admin_approved %}
                         <div class = "form-check">
-                            <input class = "form-check-input" type = "checkbox" checked = "checked" value = {{place.id}} named = "boxes"/>
+                            <input class = "form-check-input" type = "checkbox" checked = "checked" value = {{place.id}} name = "boxes"/>
                         </div>
                     {% else %}
                         <div class = "form-check">
-                            <input class = "form-check-input" type = "checkbox" value = {{place.id}} named = "boxes"/>
+                            <input class = "form-check-input" type = "checkbox" value = {{place.id}} name = "boxes"/>
                         </div>
                     {% endif %}
                 </td>
@@ -28,6 +30,8 @@
             {% endfor %}
             </tbody>
         </table>
-        <button class='btn' type="submit">Update approval</button>
+    
+        <button class='button' type="submit">Update approval</button>
+    </form>
     </body>
 </html>
