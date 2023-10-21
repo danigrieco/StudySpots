@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'hoosThere',
+    'cs3240',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
