@@ -6,4 +6,4 @@ class Place(models.Model):
     details = models.CharField(max_length=500)
     admin_approved = models.BooleanField(default=False)
     def __str__(self):
-        return self.title
+        return self.name

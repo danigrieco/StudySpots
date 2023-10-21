@@ -33,7 +33,6 @@ ALLOWED_HOSTS = [
 
 
 # Application definition
-app_name="hoosThere"
 
 INSTALLED_APPS = [
     'django.contrib.admin',
