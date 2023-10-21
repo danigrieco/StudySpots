@@ -28,6 +28,14 @@ def admin_approval(request):
     else:
         return redirect('')
 
+def suggest(request):
+    template_name = "suggest.html"
+    place_name = request.POST.get('nameInput')
+    place_details = request.POST.get('detailInput')
+    place = Place(title=place_name, details=place_details)
+    place.save()
+    return render(request,"index.html")
+
 class PlacesView(generic.ListView):
     template_name = "places.html"
     context_object_name = "places_list"

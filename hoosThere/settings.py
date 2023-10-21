@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [
 
 
 # Application definition
+app_name="hoosThere"
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'cs3240',
+    'hoosThere',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',

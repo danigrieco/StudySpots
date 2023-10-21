@@ -30,4 +30,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('approval/',views.admin_approval, name="approval"),
     path('places/',views.PlacesView.as_view(), name="places"),
+    path('suggest/',views.suggest, name="suggest"),
 ]
