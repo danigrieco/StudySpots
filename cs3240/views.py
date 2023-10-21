@@ -26,13 +26,13 @@ def admin_approval(request):
         else:
             return render(request, "approval.html", {"places_list":places_list})
     else:
-        return redirect('')
+        return redirect('index.html')
 
 def suggest(request):
     template_name = "suggest.html"
     place_name = request.POST.get('nameInput')
     place_details = request.POST.get('detailInput')
-    place = Place(title=place_name, details=place_details)
+    place = Place(name=place_name, details=place_details)
     place.save()
     return render(request,"index.html")
 
