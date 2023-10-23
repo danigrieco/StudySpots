@@ -26,7 +26,7 @@ def admin_approval(request):
         else:
             return render(request, "approval.html", {"places_list":places_list})
     else:
-        return redirect('index.html')
+        return redirect('home')
 
 def suggest(request):
     template_name = "suggest.html"

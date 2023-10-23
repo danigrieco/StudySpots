@@ -24,7 +24,7 @@ Including another URLconf
 app_name = "cs3240"
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='index.html')),
+    path('', TemplateView.as_view(template_name='index.html'),name='home'),
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view()),
     path('admin/', admin.site.urls),
