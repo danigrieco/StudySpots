@@ -26,15 +26,17 @@ def admin_approval(request):
         else:
             return render(request, "approval.html", {"places_list":places_list})
     else:
-        return redirect('index.html')
+        return redirect('home')
 
 def suggest(request):
     template_name = "suggest.html"
-    place_name = request.POST.get('nameInput')
-    place_details = request.POST.get('detailInput')
-    place = Place(name=place_name, details=place_details)
-    place.save()
-    return render(request,"index.html")
+    if request.method == "POST":
+        place_name = request.POST.get('nameInput')
+        place_details = request.POST.get('detailInput')
+        place = Place(name=place_name, details=place_details)
+        place.save()
+        return redirect('places')
+    return render(request,"suggest.html")
 
 class PlacesView(generic.ListView):
     template_name = "places.html"

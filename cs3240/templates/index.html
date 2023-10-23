@@ -7,7 +7,7 @@
             {% for group in user.groups.all %}
                 <p>You are in group {{ group }}.</p>
                 {% if group.name == 'verifier' %}
-                    <a href="approval/">click here to see submissions to approve</a>
+                    <a href="{% url 'approval' %}">click here to see submissions to approve</a>
                 {% endif %}
             {% endfor %}
         {% else %}
