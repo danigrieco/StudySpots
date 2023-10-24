@@ -38,6 +38,9 @@ def suggest(request):
         return redirect('places')
     return render(request,"suggest.html")
 
+def getPlace(id):
+    return Place.objects.get(id=id)
+
 class PlacesView(generic.ListView):
     template_name = "places.html"
     context_object_name = "places_list"

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'django_google_maps',
 ]
 
 MIDDLEWARE = [
@@ -167,3 +168,5 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
+
+GOOGLE_API_KEY = '267309289994-tdla7h2ifosne1venh34itj2dd4c3ata.apps.googleusercontent.com'
