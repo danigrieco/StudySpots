@@ -140,8 +140,7 @@ AUTHENTICATION_BACKENDS = [
         ]
 
 # either the id is set through heroku or through the local environment
-if 'CLIENT_ID' not in os.environ:
-    s3 = S3Connection(os.environ['CLIENT_ID'], os.environ['CLIENT_SECRET'])
+
 
 SOCIALACCOUNT_PROVIDERS = {
         'google': {
