@@ -7,7 +7,7 @@ class Tests(TestCase):
         self.user = User.objects.create_user(username='user', password='password')
 
     def test_redirect_no_login(self):
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('home'))
         # Adjust this depending on your login redirect behavior.
         # If unauthenticated users can access the index without being redirected, then this test might not be necessary.
         self.assertEqual(response.status_code, 200)
