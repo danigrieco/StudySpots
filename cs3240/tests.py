@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
-
+from .models import Place
 
 class ProfileViewTests(TestCase):
 
@@ -11,6 +11,7 @@ class ProfileViewTests(TestCase):
             'password': 'secret1234'
         }
         self.user = User.objects.create_user(**self.credentials)
+
     def test_wrong_login_credentials(self):
         login_status = self.client.login(username='testuser', password='wrongpassword')
         self.assertFalse(login_status)
