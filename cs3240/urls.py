@@ -31,4 +31,5 @@ urlpatterns = [
     path('approval/',views.admin_approval, name="approval"),
     path('places/',views.PlacesView.as_view(), name="places"),
     path('suggest/',views.suggest, name="suggest"),
+    path('places/<int:place_id>/', views.see_place, name="see_place"),
 ]

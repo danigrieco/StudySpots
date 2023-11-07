@@ -15,6 +15,11 @@ class ApprovalView(generic.ListView):
     def get_queryset(self):
         return Place.objects.all
     
+def see_place(request, place_id):
+    place = getPlace(place_id)
+    return render(request, "place.html", {"place":place})
+    
+
 def admin_approval(request):
     places_list = Place.objects.all()
     if request.user.is_superuser:

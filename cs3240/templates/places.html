@@ -17,7 +17,7 @@
             {% for place in places_list %}
             {% if place.admin_approved %}
             <tr>
-                <td>{{ place.name }}</td>
+                <td><a href = "/places/{{place.id}}"> {{ place.name }} </a></td>
                 <td>
                     {{ place.details }}
                 </td>
@@ -30,6 +30,7 @@
         <a href = "{% url 'suggest' %}">
             <button class='btn btn-secondary'>Suggest a Spot</button>
         </a>
+
     </link>
     </body>
 
