@@ -44,3 +44,25 @@ class PlacesView(generic.ListView):
 
     def get_queryset(self):
         return Place.objects.all
+    
+class ReccomendView(generic.ListView):
+    template_name = "reccomend.html"
+    context_object_name = "places_list"
+
+    def get_queryset(self):
+        return Place.objects.all
+    
+def suggest_place(request):
+    template_namee = "suggestion.html"
+    if request.method == 'POST':
+        location = request.POST.get('locationInput')
+        busy_rating = int(request.POST.get('busyInput'))
+        wifi_outlet_rating = int(request.POST.get('wifiOutletInput'))
+
+        # algorithm to detemrine which spot here
+        suggested_place = Place.objects.get_suggested_place(location, busy_rating, wifi_outlet_rating)
+
+        return render(request, 'reccomend.html', {'suggested_place': suggested_place})
+
+    return render(request, 'reccomend.html')
+
