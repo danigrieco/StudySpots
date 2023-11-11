@@ -4,29 +4,77 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="../static/page.css">
+
 </head>
 
 <body>
-    <h1>Submit a study spot suggestion below</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Hoos Studying</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'places' %}">Places</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{% url 'suggest' %}">Suggest</a>
+                </li>
+                <li class="nav-item">
+                    <a id = "approvalLink" class="nav-link" hidden="true" href="{% url 'approval' %}">Approval</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+        </nav>
+        {% for group in user.groups.all %}
+                {% if group.name == 'verifier' %}
+                    <script>
+                        document.getElementById('approvalLink').hidden = false;//unhides approval link
+                    </script>
+                {% endif %}
+            {% endfor %}
+    <div class="container">
+        <center>
+
+        
+        <h1>Suggest a Study Spot</h1>
     <form action="" method="post">
         {% csrf_token %}
-        <div width=15px>
-            <h7>Enter the name of the study spot below:</h7>
-            <input type="name" class="form-control" id="nameInput" name="nameInput" placeholder="Enter name">
+        <div class="vstack gap-4">
+            <div>
+                <h7>Enter the name of the study spot below:</h7>
+                <input type="name" class="form-control" id="nameInput" name="nameInput" placeholder="Enter name">
+            </div>
+            <div>
+                <h7>Enter a brief description of the spot below:</h7>
+                <input type="details" class="form-control" id="detailInput" name="detailInput" placeholder="Enter details">
+            </div>
+            <div>
+                <h7>Enter the address of the spot below:</h7>
+                <input type="text" class="form-control" id="autocomplete" name="addressInput" placeholder="Enter address">
+            </div>
+            <div>
+                <button class="btn btn-secondary" type="submit">Submit</button>
+                <a href = "{% url 'places' %}">
+                <button class='btn btn-secondary'>Approved Spots</button>
+                </a>
+            </div>
+                
             <br />
-            <h7>Enter a brief description of the spot below:</h7>
-            <input type="details" class="form-control" id="detailInput" name="detailInput" placeholder="Enter details">
-            <br />
-            <h7>Enter the address of the spot below:</h7>
-            <input type="text" class="form-control" id="autocomplete" name="addressInput" placeholder="Enter address">
-            <br />
-            <button class="btn btn-secondary" type="submit">Submit</button>
+        </center>
         </div>
     </form>
+    </div>
+    
 
-    <a href = "{% url 'places' %}">
-    <button class='btn btn-secondary'>See Approved Spots</button>
-    </a>
+    
     <script>
         function initializeAutocomplete() {
             const input = document.getElementById('autocomplete');
