@@ -2,6 +2,7 @@
 {% load in_any_groups %}
 <html>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/page.css">
     <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -12,21 +13,23 @@
             <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'places' %}">Places</a>
+                    <a id="placesLink" class="nav-link" hidden = "true" href="{% url 'places' %}">Places</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="{% url 'suggest' %}">Suggest</a>
+                <a id = "suggestLink" class="nav-link" hidden = "true" href="{% url 'suggest' %}">Suggest</a>
                 </li>
                 <li class="nav-item">
                     <a id = "approvalLink" class="nav-link" hidden="true" href="{% url 'approval' %}">Approval</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    <a id = "logoutLink" class="nav-link" hidden = "true" href="{% url 'logout' %}">Logout</a>
                 </li>
             </ul>
             </div>
         </div>
         </nav>
+
+        
 
         <div class = "container">
         <center>
@@ -35,8 +38,14 @@
             
             
         {% if user.is_authenticated %}
+        <script>
+            document.getElementById('placesLink').hidden = false;//unhides all nav bar links
+            document.getElementById('suggestLink').hidden = false;
+            document.getElementById('logoutLink').hidden = false;
+        </script>
         <h4>Welcome, {{ user.username }}!</h4>
-            
+            <p>Our app allows you to discover new places to study around grounds!</p>
+            <p>Feel free to suggest your favorite study spot below!</p>
             {% for group in user.groups.all %}
                 {% if group.name == 'verifier' %}
                     <script>
@@ -51,11 +60,14 @@
                 </a>
                 {% endif %}
             {% endfor %}
+            <a href = "{% url 'suggest' %}">
+                <button class='btn btn-secondary'>Suggest</button>
+            </a>
         {% if not user.groups.all|in_any_groups and user.is_authenticated %}
             <!-- Automatically redirect to places -->
-            <script type="text/javascript">
+            <!-- <script type="text/javascript">
                 window.location.href = "{% url 'places' %}"
-            </script>
+            </script> -->
         {% endif %}
         {% else %}
         <p>Please login with Google below to continue to the app</p>
