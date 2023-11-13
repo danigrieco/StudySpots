@@ -55,17 +55,20 @@
                 </tr>
             </thead>
             <tbody>
-            {% for place in places_list %}
-            {% if place.admin_approved %}
-            <tr>
-                <td><a href = "/places/{{place.id}}"> {{ place.name }} </a></td>
-                <td>
-                    {{ place.details }}
-                </td>
-                <td> <a href="https://www.google.com/maps/search/?api=1&query={{ place.address|clean_addr }}" target="_blank" > {{ place.address|short_addr }}</a></td>
-                </tr>
-            {% endif %}
-            {% endfor %}
+
+                    
+                    {% for place in places_list %}
+                    {% if place.admin_approved %}
+                    <tr>
+                        <td><a href = "/places/{{place.id}}"> {{ place.name }} </a></td>
+                        <td>
+                            {{ place.details }}
+                        </td>
+                        <td> <a href="https://www.google.com/maps/search/?api=1&query={{ place.address|clean_addr }}" target="_blank" > {{ place.address|short_addr }}</a></td>
+                        </tr>
+                    {% endif %}
+                    {% endfor %}
+            
             </tbody>
         </table>
         <a href = "{% url 'suggest' %}">

@@ -50,21 +50,18 @@
         <div class="vstack gap-4">
             <div>
                 <h7>Enter the name of the study spot below:</h7>
-                <input type="name" class="form-control" id="nameInput" name="nameInput" placeholder="Enter name">
+                <input type="name" class="form-control" id="nameInput" name="nameInput" placeholder="Enter name" required>
             </div>
             <div>
                 <h7>Enter a brief description of the spot below:</h7>
-                <input type="details" class="form-control" id="detailInput" name="detailInput" placeholder="Enter details">
+                <input type="details" class="form-control" id="detailInput" name="detailInput" placeholder="Enter details" required>
             </div>
             <div>
                 <h7>Enter the address of the spot below:</h7>
-                <input type="text" class="form-control" id="autocomplete" name="addressInput" placeholder="Enter address">
+                <input type="text" class="form-control" id="autocomplete" name="addressInput" placeholder="Enter address" required>
             </div>
             <div>
                 <button class="btn btn-secondary" type="submit">Submit</button>
-                <a href = "{% url 'places' %}">
-                <button class='btn btn-secondary'>Approved Spots</button>
-                </a>
             </div>
                 
             <br />

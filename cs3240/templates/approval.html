@@ -33,7 +33,7 @@
                 </script>
             {% endif %}
         {% endfor %}
-        <div>
+        <div class="container">
             <h1>Admin Approval Page</h1>
         <form action = "" method="post">
             {% csrf_token %}
@@ -41,6 +41,7 @@
             <thead>
                 <tr>
                 <th scope="col">Name</th>
+                <th scope="col">Details</th>
                 <th scope="col">Approved</th>
                 </tr>
             </thead>
@@ -48,6 +49,7 @@
             {% for place in places_list %}
             <tr>
                 <td>{{ place }}</td>
+                <td>{{ place.details }}</td>
                 <td>
                     {% if place.admin_approved %}
                         <div class = "form-check">
@@ -63,11 +65,14 @@
             {% endfor %}
             </tbody>
         </table>
-    
-        <button class='btn btn-secondary' type="submit">Update approval</button>
+        <center>
+            <button class='btn btn-secondary' type="submit">Update approval</button>
         <a href = "{% url 'places' %}">
             <button class='btn btn-secondary'>Approved Spots</button>
         </a>
+        </center>
+    
+        
     </form>
         </div>
         
