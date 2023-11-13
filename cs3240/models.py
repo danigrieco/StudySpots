@@ -7,6 +7,10 @@ class Place(models.Model):
     details = models.CharField(max_length=500,null=True)
     address = map_fields.AddressField(max_length=200,null=True)
     admin_approved = models.BooleanField(default=False)
+    locations = [("Central Grounds", "central"),
+                 ("North Grounds", "north"),
+                 ("South Grounds", "south")]
+    location = models.CharField(blank=True, choices=locations, max_length=15)
     def __str__(self):
         return self.name
     def get_suggested_place(location, busy_rating, wifi_outlet_rating):
@@ -14,7 +18,6 @@ class Place(models.Model):
         return suggested_place
 class Review(models.Model):
     Place = models.ForeignKey(Place, on_delete=models.CASCADE)
-    location = models.CharField(max_length=200,null=True)
     busy_rating = models.IntegerField(default = 5)
     wifi_outlet_rating = models.IntegerField(default = 5)
     user = models.CharField(max_length=200,null=True)

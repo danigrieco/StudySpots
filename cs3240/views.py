@@ -43,7 +43,8 @@ def suggest(request):
         place_name = request.POST.get('nameInput')
         place_details = request.POST.get('detailInput')
         place_address = request.POST.get('addressInput')
-        place = Place(name=place_name, details=place_details, address=place_address)
+        place_area = request.POST.get('locationInput')
+        place = Place(name=place_name, details=place_details, address=place_address, location=place_area)
         place.save()
         return redirect('places')
     return render(request,"suggest.html")
@@ -77,8 +78,8 @@ def suggest_place(request):
             if Place.location == location:
                 t1 = Place.busy_rating - busy_rating
                 t2 = Place.wifi_outlet_rating - wifi_outlet_rating
-                if min < abs((t1-t2))/2:
-                    min = abs((t1-t2))/2
+                if min < (abs(t1)+abs(t2))/2:
+                    min = (abs(t1)+abs(t2))/2
                     suggested_place  = Place.objects.get_suggested_place(location, busy_rating, wifi_outlet_rating)
 
 
