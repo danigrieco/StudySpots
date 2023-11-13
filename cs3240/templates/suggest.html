@@ -9,7 +9,7 @@
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                   <a class="nav-link" href="{% url 'places' %}">places</a>
-                  <a class="nav-link" href="{% url 'reccomend' %}">reccomend</a>
+                  <a class="nav-link" href="{% url 'recommend' %}">recommend</a>
                   <a class="nav-link" href="{% url 'suggest' %}">suggest</a>
                 </div>
               </div>
@@ -29,6 +29,14 @@
                 <h7>Enter a brief description of the spot below:</h7>
                 <input type="details" class="form-control" id="detailInput" name="detailInput" placeholder="Enter details">
                 <br/>
+                <div class="mb-3">
+                  <label for="busyInput" class="form-label">How busy it typically is (1-5):</label>
+                  <input type="number" class="form-control" id="busyInput" name="busyInput" placeholder="Enter rating (1-5)" min="1" max="5" required>
+                </div>
+                <div class="mb-3">
+                  <label for="wifiOutletInput" class="form-label">Access to WiFi and Outlets (1-5):</label>
+                  <input type="number" class="form-control" id="wifiOutletInput" name="wifiOutletInput" placeholder="Enter rating (1-5)" min="1" max="5" required>
+                </div>
                 <button class="btn btn-secondary" type="submit">Submit</button>
             </div>
             

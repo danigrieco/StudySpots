@@ -16,7 +16,7 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a class="nav-link" href="{% url 'places' %}">places</a>
-              <a class="nav-link" href="{% url 'reccomend' %}">reccomend</a>
+              <a class="nav-link" href="{% url 'recommend' %}">recommend</a>
               <a class="nav-link" href="{% url 'suggest' %}">suggest</a>
             </div>
           </div>
@@ -26,12 +26,18 @@
 <body>
     <div class="container">
         <h1>Suggested Place:</h1>
-        {% if suggested_place %}
+        {% if suggested_place %}     
             <p>{{ suggested_place.name }} is a suggested place based on your preferences.</p>
             <p>Details: {{ suggested_place.details }}</p>
-            <!-- Maybe add more details here -->
         {% else %}
             <p>No suggested place available based on your preferences.</p>
+            <p>Would you like to alter you're changes?</p>
+            <a class = "btn" href ="/recommend">
+              <button>Yes</button>
+            </a>
+            <a class = "btn" href ="/places">
+              <button>No</button>
+            </a>
         {% endif %}
     </div>
 </body>

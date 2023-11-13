@@ -2,10 +2,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from .models import Place
 from django.views import generic
 
+
 class ApprovalView(generic.ListView):
     template_name = "approval.html"
     context_object_name = "places_list"
-     # def results(request, question_id):
+    # def results(request, question_id):
     #     question = get_object_or_404(Question, pk=question_id)
     #     return render(request, "polls/results.html", {"question": question})
 
@@ -45,8 +46,9 @@ class PlacesView(generic.ListView):
     def get_queryset(self):
         return Place.objects.all
     
-class ReccomendView(generic.ListView):
-    template_name = "reccomend.html"
+    
+class RecommendView(generic.ListView):
+    template_name = "recommend.html"
     context_object_name = "places_list"
 
     def get_queryset(self):
@@ -58,11 +60,19 @@ def suggest_place(request):
         location = request.POST.get('locationInput')
         busy_rating = int(request.POST.get('busyInput'))
         wifi_outlet_rating = int(request.POST.get('wifiOutletInput'))
+        min = 5
+        for Place in places_list:
+            if Place.location == location:
+                t1 = Place.busy_rating - busy_rating
+                t2 = Place.wifi_outlet_rating - wifi_outlet_rating
+                if min < abs((t1-t2))/2:
+                    min = abs((t1-t2))/2
+                    suggested_place  = Place.objects.get_suggested_place(location, busy_rating, wifi_outlet_rating)
+
 
         # algorithm to detemrine which spot here
-        suggested_place = Place.objects.get_suggested_place(location, busy_rating, wifi_outlet_rating)
+        return render(request, 'suggestion.html', {'suggested_place': suggested_place})
 
-        return render(request, 'reccomend.html', {'suggested_place': suggested_place})
+    return render(request, 'suggestion.html')
 
-    return render(request, 'reccomend.html')
 

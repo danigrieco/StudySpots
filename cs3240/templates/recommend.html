@@ -18,7 +18,7 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a class="nav-link" href="{% url 'places' %}">places</a>
-              <a class="nav-link" href="{% url 'reccomend' %}">reccomend</a>
+              <a class="nav-link" href="{% url 'recommend' %}">recommend</a>
               <a class="nav-link" href="{% url 'suggest' %}">suggest</a>
             </div>
           </div>
@@ -40,12 +40,12 @@
             </div>
 
             <div class="mb-3">
-                <label for="busyInput" class="form-label">How busy it typically is (1-5):</label>
+                <label for="busyInput" class="form-label">How busy you typically want it to be (1-5):</label>
                 <input type="number" class="form-control" id="busyInput" name="busyInput" placeholder="Enter rating (1-5)" min="1" max="5" required>
             </div>
 
             <div class="mb-3">
-                <label for="wifiOutletInput" class="form-label">Access to WiFi and Outlets (1-5):</label>
+                <label for="wifiOutletInput" class="form-label">Preffered Access to WiFi and Outlets (1-5):</label>
                 <input type="number" class="form-control" id="wifiOutletInput" name="wifiOutletInput" placeholder="Enter rating (1-5)" min="1" max="5" required>
             </div>
 
