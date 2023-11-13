@@ -33,4 +33,5 @@ urlpatterns = [
     path('suggest/',views.suggest, name="suggest"),
     path('suggestion/',views.suggest_place, name="suggestion"),
     path('recommend/',views.RecommendView.as_view(), name="recommend"),
+    path('places/<int:place_id>/', views.see_place, name="see_place"),
 ]

@@ -1,6 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Place
 from django.views import generic
+from django_google_maps import widgets as map_widgets
+from django_google_maps import fields as map_fields
+
 
 
 class ApprovalView(generic.ListView):
@@ -13,6 +16,11 @@ class ApprovalView(generic.ListView):
     def get_queryset(self):
         return Place.objects.all
     
+def see_place(request, place_id):
+    place = getPlace(place_id)
+    return render(request, "place.html", {"place":place})
+    
+
 def admin_approval(request):
     places_list = Place.objects.all()
     if request.user.is_superuser:
@@ -34,10 +42,14 @@ def suggest(request):
     if request.method == "POST":
         place_name = request.POST.get('nameInput')
         place_details = request.POST.get('detailInput')
-        place = Place(name=place_name, details=place_details)
+        place_address = request.POST.get('addressInput')
+        place = Place(name=place_name, details=place_details, address=place_address)
         place.save()
         return redirect('places')
     return render(request,"suggest.html")
+
+def getPlace(id):
+    return Place.objects.get(id=id)
 
 class PlacesView(generic.ListView):
     template_name = "places.html"

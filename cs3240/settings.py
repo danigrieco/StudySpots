@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'django_google_maps',
 ]
 
 MIDDLEWARE = [
@@ -140,6 +141,8 @@ AUTHENTICATION_BACKENDS = [
         ]
 
 # either the id is set through heroku or through the local environment
+#if 'CLIENT_ID' not in os.environ:
+#    s3 = S3Connection(os.environ['CLIENT_ID'], os.environ['CLIENT_SECRET'])
 
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -166,3 +169,5 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyBMRhyxb0UYp1gI4de1Ij3zJVNL9X8FVys'
