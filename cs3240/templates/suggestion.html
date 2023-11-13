@@ -1,0 +1,44 @@
+{% load socialaccount %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Suggested Place</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link" href="{% url 'places' %}">places</a>
+              <a class="nav-link" href="{% url 'recommend' %}">recommend</a>
+              <a class="nav-link" href="{% url 'suggest' %}">suggest</a>
+            </div>
+          </div>
+        </div>
+    </nav>
+</body>
+<body>
+    <div class="container">
+        <h1>Suggested Place:</h1>
+        {% if suggested_place %}     
+            <p>{{ suggested_place.name }} is a suggested place based on your preferences.</p>
+            <p>Details: {{ suggested_place.details }}</p>
+        {% else %}
+            <p>No suggested place available based on your preferences.</p>
+            <p>Would you like to alter you're changes?</p>
+            <a class = "btn" href ="/recommend">
+              <button>Yes</button>
+            </a>
+            <a class = "btn" href ="/places">
+              <button>No</button>
+            </a>
+        {% endif %}
+    </div>
+</body>
+</html>
