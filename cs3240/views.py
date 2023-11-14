@@ -5,10 +5,11 @@ from django_google_maps import widgets as map_widgets
 from django_google_maps import fields as map_fields
 
 
+
 class ApprovalView(generic.ListView):
     template_name = "approval.html"
     context_object_name = "places_list"
-     # def results(request, question_id):
+    # def results(request, question_id):
     #     question = get_object_or_404(Question, pk=question_id)
     #     return render(request, "polls/results.html", {"question": question})
 
@@ -42,7 +43,8 @@ def suggest(request):
         place_name = request.POST.get('nameInput')
         place_details = request.POST.get('detailInput')
         place_address = request.POST.get('addressInput')
-        place = Place(name=place_name, details=place_details, address=place_address)
+        place_area = request.POST.get('locationInput')
+        place = Place(name=place_name, details=place_details, address=place_address, location=place_area)
         place.save()
         return redirect('places')
     return render(request,"suggest.html")
@@ -56,3 +58,34 @@ class PlacesView(generic.ListView):
 
     def get_queryset(self):
         return Place.objects.all
+    
+    
+class RecommendView(generic.ListView):
+    template_name = "recommend.html"
+    context_object_name = "places_list"
+
+    def get_queryset(self):
+        return Place.objects.all
+    
+def suggest_place(request):
+    template_namee = "suggestion.html"
+    if request.method == 'POST':
+        location = request.POST.get('locationInput')
+        busy_rating = int(request.POST.get('busyInput'))
+        wifi_outlet_rating = int(request.POST.get('wifiOutletInput'))
+        min = 5
+        for Place in places_list:
+            if Place.location == location:
+                t1 = Place.busy_rating - busy_rating
+                t2 = Place.wifi_outlet_rating - wifi_outlet_rating
+                if min < (abs(t1)+abs(t2))/2:
+                    min = (abs(t1)+abs(t2))/2
+                    suggested_place  = Place.objects.get_suggested_place(location, busy_rating, wifi_outlet_rating)
+
+
+        # algorithm to detemrine which spot here
+        return render(request, 'suggestion.html', {'suggested_place': suggested_place})
+
+    return render(request, 'suggestion.html')
+
+

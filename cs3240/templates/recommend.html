@@ -1,0 +1,56 @@
+{% load socialaccount %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Study Spot Preferences</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'polls/centered.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link" href="{% url 'places' %}">places</a>
+              <a class="nav-link" href="{% url 'recommend' %}">recommend</a>
+              <a class="nav-link" href="{% url 'suggest' %}">suggest</a>
+            </div>
+          </div>
+        </div>
+    </nav>
+</body>
+<body>
+    <div class="container">
+        <h1>Recommend a Study Spot</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="locationInput" class="form-label">Select the location:</label>
+                <select class="form-select" id="locationInput" name="locationInput" required>
+                    <option value="north">North Grounds</option>
+                    <option value="south">South Grounds</option>
+                    <option value="central">Central Grounds</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="busyInput" class="form-label">How busy you typically want it to be (1-5):</label>
+                <input type="number" class="form-control" id="busyInput" name="busyInput" placeholder="Enter rating (1-5)" min="1" max="5" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="wifiOutletInput" class="form-label">Preffered Access to WiFi and Outlets (1-5):</label>
+                <input type="number" class="form-control" id="wifiOutletInput" name="wifiOutletInput" placeholder="Enter rating (1-5)" min="1" max="5" required>
+            </div>
+
+            <button type="submit" class="btn btn-secondary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
