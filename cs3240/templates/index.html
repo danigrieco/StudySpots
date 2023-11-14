@@ -54,16 +54,13 @@
                     </script>
                     <p> You are an admin user</p>
                     <a href="{% url 'approval' %}">
-                    <button class='btn btn-secondary'>Admin Approval</button>
-                </a>
+                    <button class='btn btn-secondary'>Admin Approval</button></a>
                 <a href = "{% url 'places' %}">
-                    <button class='btn btn-secondary'>Approved Places</button>
-                </a>
+                    <button class='btn btn-secondary'>Approved Places</button></a>
                 {% endif %}
             {% endfor %}
             <a href = "{% url 'suggest' %}">
-                <button class='btn btn-secondary'>Suggest</button>
-            </a>
+                <button class='btn btn-secondary'>Suggest</button></a>
         {% if not user.groups.all|in_any_groups and user.is_authenticated %}
             <!-- Automatically redirect to places -->
             <!-- <script type="text/javascript">
@@ -73,8 +70,7 @@
         {% else %}
         <p>Please login with Google below to continue to the app</p>
         <a href="{% provider_login_url 'google' %}">
-            <button class='btn btn-secondary'> Login</button>
-        </a>
+            <button class='btn btn-secondary'>Login</button></a>
         
         {% endif %}
     </center>
