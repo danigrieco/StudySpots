@@ -38,7 +38,8 @@
 
         
 
-        <div class = "container">
+        <div class = "container" >
+        
         <center>
         
             <h1>Hoos Studying</h1>
@@ -53,20 +54,24 @@
         <h4>Welcome, {{ user.username|format_name }}!</h4>
             <p>Our app allows you to discover new places to study around grounds!</p>
             <p>Feel free to suggest your favorite study spot below!</p>
+           
+            <a href = "{% url 'suggest' %}">
+                <button class='btn btn-secondary'>Suggest</button></a>
+            <a href = "{% url 'places' %}">
+                    <button class='btn btn-secondary'>View Places</button></a>
+            
             {% for group in user.groups.all %}
                 {% if group.name == 'verifier' %}
                     <script>
                         document.getElementById('approvalLink').hidden = false;//unhides approval link
                     </script>
-                    <p> You are an admin user</p>
+                    <br/>
+                    <br/>
                     <a href="{% url 'approval' %}">
-                    <button class='btn btn-secondary'>Admin Approval</button></a>
-                <a href = "{% url 'places' %}">
-                    <button class='btn btn-secondary'>Approved Places</button></a>
+                    <button class='btn btn-secondary'>Admin Page</button></a>
+                
                 {% endif %}
             {% endfor %}
-            <a href = "{% url 'suggest' %}">
-                <button class='btn btn-secondary'>Suggest</button></a>
         {% if not user.groups.all|in_any_groups and user.is_authenticated %}
             <!-- Automatically redirect to places -->
             <!-- <script type="text/javascript">
