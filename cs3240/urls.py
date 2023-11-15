@@ -26,7 +26,7 @@ app_name = "cs3240"
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'),name='home'),
     path('accounts/', include('allauth.urls')),
-    path('logout', LogoutView.as_view()),
+    path('logout', LogoutView.as_view(),name='logout'),
     path('admin/', admin.site.urls),
     path('approval/',views.admin_approval, name="approval"),
     path('places/',views.PlacesView.as_view(), name="places"),

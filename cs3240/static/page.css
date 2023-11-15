@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #col-1 {
+    position: fixed;
+    width: 50%;
+    left: 0;
+    height: 100%;
+    background-color: #282828;
+    z-index: 1
+  }
+  
+  #col-2 {
+    position: fixed;
+    width: 50%;
+    right:0;
+    height: 100%;
+    background-color: #0080ff;
+    z-index: 0
+  }
+  .pagecontainer{
+    display: flex;
+    flex-direction: row;
+  }
+  input[type=text] {
+    width: 80%;
+    height: 10%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+  }
+
+  .homecontainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+body{
+  background: white url("background.jpeg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+  
