@@ -23,6 +23,8 @@
                 <li class="nav-item">
                     <a id = "approvalLink" class="nav-link" hidden="true" href="{% url 'approval' %}">Approval</a>
                 </li>
+            </ul>
+                <ul class ="nav navbar-nav navbar-right">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
@@ -58,16 +60,19 @@
                 <input type="text" class="form-control" id="autocomplete" name="addressInput" placeholder="Enter address" required>
             </div>
             <div>
-                <button class="btn btn-secondary" type="submit">Submit</button>
-            </div>
-                
-            <br />
 
                 <select class="form-select" id="locationInput" name="locationInput" required>
                     <option value="north">North Grounds</option>
                     <option value="south">South Grounds</option>
                     <option value="central">Central Grounds</option>
                 </select>
+            </div>
+            <div>
+                <button class="btn btn-secondary" type="submit">Submit</button>
+            </div>
+                
+            <br />
+
         </center>
         </div>
     </form>
