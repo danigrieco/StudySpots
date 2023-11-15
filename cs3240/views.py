@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Place
+from .models import Place, Review
 from django.views import generic
 from django_google_maps import widgets as map_widgets
 from django_google_maps import fields as map_fields
@@ -54,10 +54,29 @@ def getPlace(id):
 class PlacesView(generic.ListView):
     template_name = "places.html"
     context_object_name = "places_list"
-
     def get_queryset(self):
-        return Place.objects.all
+        places = Place.objects.all()
+        for place in places:
+            place.avg_busy_rating, place.avg_wifi_outlet_rating = place.get_average_review()
+        return places
     
+    
+def ReviewForm(request, place_id):
+    place = getPlace(place_id)
+    template_name = "reviewForm.html"
+    if request.method == "POST":
+        review_busy = float(request.POST.get('busyInput'))
+        review_wifi = float(request.POST.get('wifiOutletInput'))
+        review_description = request.POST.get('detailInput')
+        review = Review(Place=place, busy_rating=review_busy, wifi_outlet_rating=review_wifi, description=review_description)
+        review.save()
+        place.avg_busy_rating, place.avg_wifi_outlet_rating = place.get_average_review()
+        place.save()
+        return redirect('places')
+    return render(request,"reviewForm.html", {"place":place})
+
+
+
     
 class RecommendView(generic.ListView):
     template_name = "recommend.html"
@@ -73,15 +92,14 @@ def suggest_place(request):
         busy_rating = int(request.POST.get('busyInput'))
         wifi_outlet_rating = int(request.POST.get('wifiOutletInput'))
         min = 5
-        for Place in places_list:
-            if Place.location == location:
-                t1 = Place.busy_rating - busy_rating
-                t2 = Place.wifi_outlet_rating - wifi_outlet_rating
-                if min < abs((t1-t2))/2:
-                    min = abs((t1-t2))/2
-                    suggested_place  = Place.objects.get_suggested_place(location, busy_rating, wifi_outlet_rating)
-
-
+        for place in Place.objects.all():
+            if place.location == location:
+                t1 = abs(place.avg_busy_rating - busy_rating)
+                t2 = abs(place.avg_wifi_outlet_rating - wifi_outlet_rating)
+                diff = (t1 + t2)/2
+                if min > diff:
+                    min = diff
+                    suggested_place  = place.objects.get_suggested_place(location, busy_rating, wifi_outlet_rating)
         # algorithm to detemrine which spot here
         return render(request, 'suggestion.html', {'suggested_place': suggested_place})
 

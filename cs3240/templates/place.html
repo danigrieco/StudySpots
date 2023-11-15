@@ -4,6 +4,8 @@
   <body>
     <h1>{{place.name}}</h1>
     <h3>{{place.details}}</h3>
+    <p>Average Busy Rating: {{ place.avg_busy_rating }}</p>
+    <p>Average Wifi Outlet Rating: {{ place.avg_wifi_outlet_rating }}</p>
     <iframe 
       width="600" 
       height="450"
@@ -13,9 +15,26 @@
       referrerpolicy="no-referrer-when-downgrade"
       src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBMRhyxb0UYp1gI4de1Ij3zJVNL9X8FVys&q={{ place.address|clean_addr }}">
     </iframe>
+    <h2>Reviews:</h2>
+    {% if place.review_set.all %}
+      <ul>
+        {% for review in place.review_set.all %}
+          <li>
+            <p>Busy Rating: {{ review.busy_rating }}</p>
+            <p>Wifi Outlet Rating: {{ review.wifi_outlet_rating }}</p>
+            <p>Description: {{ review.description }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No reviews available for this place.</p>
+    {% endif %}
     <br>
     <a href = "{% url 'places' %}">
       <button class='btn btn-secondary'>Back</button>
+    </a>
+    <a href = "/places/{{place.id}}/review">
+      <button class='btn btn-secondary'>Review Spot</button>
     </a>
 
   </body>
