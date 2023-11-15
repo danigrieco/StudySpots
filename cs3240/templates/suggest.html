@@ -15,20 +15,26 @@
             <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'places' %}">Places</a>
+                    <a class="nav-link"  href="{% url 'places' %}">Places</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="{% url 'suggest' %}">Suggest</a>
                 </li>
                 <li class="nav-item">
-                    <a id = "approvalLink" class="nav-link" hidden="true" href="{% url 'approval' %}">Approval</a>
+                    <a id="approvalLink" class="nav-link" hidden = "true" href="{% url 'approval' %}">Approval</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    <a id="recommend" class="nav-link" href="{% url 'recommend' %}">Recommend</a>
                 </li>
             </ul>
+            
             </div>
         </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a   class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
         </nav>
         {% for group in user.groups.all %}
                 {% if group.name == 'verifier' %}
@@ -58,16 +64,21 @@
                 <input type="text" class="form-control" id="autocomplete" name="addressInput" placeholder="Enter address" required>
             </div>
             <div>
+                <h7>What part of grounds is this spot? </h7>
+            <select class="form-select" id="locationInput" name="locationInput" required>
+                <option value="north">North Grounds</option>
+                <option value="south">South Grounds</option>
+                <option value="central">Central Grounds</option>
+            </select>
+            </div>
+            
+            <div>
                 <button class="btn btn-secondary" type="submit">Submit</button>
             </div>
                 
             <br />
 
-                <select class="form-select" id="locationInput" name="locationInput" required>
-                    <option value="north">North Grounds</option>
-                    <option value="south">South Grounds</option>
-                    <option value="central">Central Grounds</option>
-                </select>
+                
         </center>
         </div>
     </form>

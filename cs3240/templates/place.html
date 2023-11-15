@@ -28,7 +28,9 @@
               <li class="nav-item">
                   <a id="approvalLink" class="nav-link" hidden = "true" href="{% url 'approval' %}">Approval</a>
               </li>
-              
+              <li class="nav-item">
+                  <a id="recommend" class="nav-link" href="{% url 'recommend' %}">Recommend</a>
+              </li>
           </ul>
           
           </div>
@@ -51,9 +53,8 @@
   <div class="col-md-6">
     <div class="vstack gap-4">
       <h1>{{place.name}}</h1>
-      <h3>{{place.details}}</h3>
+      <p>{{place.details}}</p>
       
-  
         <a href = "{% url 'places' %}">
           <button class='btn btn-secondary'>Back</button>
         </a>
