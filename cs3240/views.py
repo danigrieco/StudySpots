@@ -23,19 +23,16 @@ def see_place(request, place_id):
 
 def admin_approval(request):
     places_list = Place.objects.all()
-    if request.user.is_superuser:
-        if request.method == "POST":
-            id_list = request.POST.getlist('boxes')
-            # uncheck all boxes before updating because you can't pass in an unchecked box
-            places_list.update(admin_approved = False)
-            # update the database with these values
-            for id in id_list:
-                Place.objects.filter(pk=int(id)).update(admin_approved = True)
-            return redirect('places')
-        else:
-            return render(request, "approval.html", {"places_list":places_list})
+    if request.method == "POST":
+        id_list = request.POST.getlist('boxes')
+        # uncheck all boxes before updating because you can't pass in an unchecked box
+        places_list.update(admin_approved = False)
+        # update the database with these values
+        for id in id_list:
+            Place.objects.filter(pk=int(id)).update(admin_approved = True)
+        return redirect('approval')
     else:
-        return redirect('home')
+        return render(request, "approval.html", {"places_list":places_list})
 
 def suggest(request):
     template_name = "suggest.html"
