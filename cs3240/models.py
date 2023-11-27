@@ -7,6 +7,7 @@ class Place(models.Model):
     details = models.CharField(max_length=700)
     address = map_fields.AddressField(max_length=200)
     admin_approved = models.BooleanField(default=False)
+    delete_place = models.BooleanField(default=False)
     locations = [("Central Grounds", "central"),
                  ("North Grounds", "north"),
                  ("South Grounds", "south")]

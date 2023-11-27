@@ -25,11 +25,15 @@ def admin_approval(request):
     places_list = Place.objects.all()
     if request.method == "POST":
         id_list = request.POST.getlist('boxes')
+        did_list = request.POST.getlist('Dboxes')
         # uncheck all boxes before updating because you can't pass in an unchecked box
+        places_list.update(delete_place = False)
         places_list.update(admin_approved = False)
         # update the database with these values
         for id in id_list:
             Place.objects.filter(pk=int(id)).update(admin_approved = True)
+        for id in did_list:
+            Place.objects.filter(pk=int(id)).delete()
         return redirect('approval')
     else:
         return render(request, "approval.html", {"places_list":places_list})
