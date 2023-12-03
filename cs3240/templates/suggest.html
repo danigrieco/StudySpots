@@ -23,6 +23,8 @@
                 <li class="nav-item">
                     <a id="approvalLink" class="nav-link" hidden = "true" href="{% url 'approval' %}">Approval</a>
                 </li>
+            </ul>
+                <ul class ="nav navbar-nav navbar-right">
                 <li class="nav-item">
                     <a id="recommend" class="nav-link" href="{% url 'recommend' %}">Recommend</a>
                 </li>
@@ -78,7 +80,11 @@
                 
             <br />
 
-                
+                <select class="form-select" id="locationInput" name="locationInput" required>
+                    <option value="north">North Grounds</option>
+                    <option value="south">South Grounds</option>
+                    <option value="central">Central Grounds</option>
+                </select>
         </center>
         </div>
     </form>

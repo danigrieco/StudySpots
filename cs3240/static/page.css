@@ -41,7 +41,7 @@
     text-align: center;
   }
 body{
-  background: white url("background.jpeg");
+  background: white url("./background.jpeg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
