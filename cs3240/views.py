@@ -29,24 +29,21 @@ def see_place(request, place_id):
     
 
 def admin_approval(request):
-    if request.user.is_authenticated:
-        places_list = Place.objects.all()
-        if request.method == "POST":
-            id_list = request.POST.getlist('boxes')
-            did_list = request.POST.getlist('Dboxes')
-            # uncheck all boxes before updating because you can't pass in an unchecked box
-            places_list.update(delete_place = False)
-            places_list.update(admin_approved = False)
-            # update the database with these values
-            for id in id_list:
-                Place.objects.filter(pk=int(id)).update(admin_approved = True)
-            for id in did_list:
-                Place.objects.filter(pk=int(id)).delete()
-            return redirect('approval')
-        else:
-            return render(request, "approval.html", {"places_list":places_list})
+    places_list = Place.objects.all()
+    if request.method == "POST":
+        id_list = request.POST.getlist('boxes')
+        did_list = request.POST.getlist('Dboxes')
+        # uncheck all boxes before updating because you can't pass in an unchecked box
+        places_list.update(delete_place = False)
+        places_list.update(admin_approved = False)
+        # update the database with these values
+        for id in id_list:
+            Place.objects.filter(pk=int(id)).update(admin_approved = True)
+        for id in did_list:
+            Place.objects.filter(pk=int(id)).delete()
+        return redirect('places')
     else:
-        return redirect('home')
+        return render(request, "approval.html", {"places_list":places_list})
 
 def suggest(request):
     if request.user.is_authenticated:
@@ -71,14 +68,11 @@ def getPlace(id):
 class PlacesView(generic.ListView):
     template_name = "places.html"
     context_object_name = "places_list"
-    def get_queryset(self, request):
-        if request.user.is_authenticated:
-            places = Place.objects.all()
-            for place in places:
-                place.avg_busy_rating, place.avg_wifi_outlet_rating = place.get_average_review()
-            return places
-        else:
-            return redirect ('home')
+    def get_queryset(self):
+        places = Place.objects.all()
+        for place in places:
+            place.avg_busy_rating, place.avg_wifi_outlet_rating = place.get_average_review()
+        return places
     
     
 def ReviewForm(request, place_id):
@@ -103,12 +97,23 @@ def ReviewForm(request, place_id):
 class RecommendView(generic.ListView):
     template_name = "recommend.html"
     context_object_name = "places_list"
+    def recommend(request):
+        busy_rating = int(request.POST.get('busyInput'))
+        wifi_outlet_rating = int(request.POST.get('wifiOutletInput'))
+        min = 5
+        for place in Place.objects.all():
+            if place.location == location:
+                t1 = abs(place.avg_busy_rating - busy_rating)
+                t2 = abs(place.avg_wifi_outlet_rating - wifi_outlet_rating)
+                diff = (t1 + t2)/2
+                if min > diff:
+                    min = diff
+                    suggested_place  = place.objects.get_suggested_place(location, busy_rating, wifi_outlet_rating)
+            # algorithm to detemrine which spot here
+            return render(request, 'suggestion.html', {'suggested_place': suggested_place})
 
-    def get_queryset(self, request):
-        if request.user.is_authenticated:
-            return Place.objects.all
-        else:
-            return redirect('home')
+    def get_queryset(self):
+        return Place.objects.all
     
 def suggest_place(request):
     if request.user.is_authenticated:
