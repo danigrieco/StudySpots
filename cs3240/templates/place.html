@@ -60,16 +60,22 @@
     </div>
   </div>
   <div class="col-md-6">
+    <p>Average Busy Rating: {{ place.avg_busy_rating }}</p>
+    <p>Average Wifi Outlet Rating: {{ place.avg_wifi_outlet_rating }}</p>
     <iframe 
-    height="1000px"
-    width="100%"
-    loading="lazy"
-    allowfullscreen
-    referrerpolicy="no-referrer-when-downgrade"
-    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBMRhyxb0UYp1gI4de1Ij3zJVNL9X8FVys&q={{ place.address|clean_addr }}">
-  </iframe>
-  </div>
-</div>
+      width="600" 
+      height="450"
+      style="border:0"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBMRhyxb0UYp1gI4de1Ij3zJVNL9X8FVys&q={{ place.address|clean_addr }}">
+    </iframe>
+    <br>
+    <a href = "{% url 'places' %}">
+      <button class='btn btn-secondary'>Back</button>
+    </a>
+
   </body>
 </html>
   
