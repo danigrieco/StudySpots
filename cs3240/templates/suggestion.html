@@ -1,4 +1,5 @@
-{% load socialaccount %}
+{% load clean_addr %}
+{% load static %}
 <style>
   .container {
   display: flex;
@@ -51,75 +52,84 @@ background-size: 100% 100%;
 
 
 </style>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Suggested Place</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <title>Suggested Place</title>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'home' %}">Hoos Studying</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="{% url 'home' %}">Hoos Studying</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link"  href="{% url 'places' %}">Places</a>
-            </li>
-            <li class="nav-item">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'places' %}">Places</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'suggest' %}">Suggest</a>
-            </li>
-            <li class="nav-item">
-                <a id="approvalLink" class="nav-link" hidden = "true" href="{% url 'approval' %}">Approval</a>
-            </li>
+          </li>
+          <li class="nav-item">
+            <a id="approvalLink" class="nav-link" hidden="true" href="{% url 'approval' %}">Approval</a>
+          </li>
         </ul>
-            <ul class ="nav navbar-nav navbar-right">
-            <li class="nav-item">
-                <a id="recommend" class="nav-link" href="{% url 'recommend' %}">Recommend</a>
-            </li>
-        </ul>
-        
-        </div>
-    </div>
         <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item">
-                <a   class="nav-link" href="{% url 'logout' %}">Logout</a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
         </ul>
-    </nav>
-    <div class="container">
-      {% for group in user.groups.all %}
-                {% if group.name == 'verifier' %}
-                    <script>
-                        document.getElementById('approvalLink').hidden = false;//unhides approval link
-                    </script>
-                {% endif %}
-            {% endfor %}
-            <div class="vstack gap-4">
-              <center>
+      </div>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="nav-item">
+        <a id="recommend" class="nav-link" href="{% url 'recommend' %}">Recommend</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    {% for group in user.groups.all %}
+      {% if group.name == 'verifier' %}
+        <script>
+          document.getElementById('approvalLink').hidden = false; // unhides approval link
+        </script>
+      {% endif %}
+    {% endfor %}
+
+    <div class="vstack gap-4">
+      <center>
         <h1>Suggested Place:</h1>
-        {% if suggested_place %}     
-            <p>{{ suggested_place.name }} is a suggested place based on your preferences.</p>
-            <p>Details: {{ suggested_place.details }}</p>
+        {% if suggested_place %}
+          <p>{{ suggested_place.name }} is a suggested place based on your preferences.</p>
+          <p>Details: {{ suggested_place.details }}</p>
+          <iframe
+            width="600"
+            height="450"
+            style="border:0"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBMRhyxb0UYp1gI4de1Ij3zJVNL9X8FVys&q={{ suggested_place.address|urlencode }}">
+          </iframe>
         {% else %}
-            <p>No suggested place available based on your preferences.</p>
-            <p>Would you like to alter you're changes?</p>
-            <a  href ="/recommend">
-              <button class = "btn btn-secondary" >Yes</button>
-            </a>
-            <a href ="/places">
-              <button class='btn btn-secondary'>
-                No
-              </button>
-            </a>
+          <p>No suggested place available based on your preferences.</p>
+          <p>Would you like to alter your choices?</p>
+          <a href="{% url 'recommend' %}">
+            <button class="btn btn-secondary">Yes</button>
+          </a>
+          <a href="{% url 'places' %}">
+            <button class="btn btn-secondary">No</button>
+          </a>
         {% endif %}
       </center>
-        </div>
     </div>
+  </div>
 </body>
 </html>

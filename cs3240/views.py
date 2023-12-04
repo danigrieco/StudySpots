@@ -91,29 +91,31 @@ def ReviewForm(request, place_id):
         return render(request,"reviewForm.html", {"place":place})
     else:
         return redirect('home')
-
-
-
+    
 class RecommendView(generic.ListView):
     template_name = "recommend.html"
-    context_object_name = "places_list"
-    def recommend(request):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
         busy_rating = int(request.POST.get('busyInput'))
         wifi_outlet_rating = int(request.POST.get('wifiOutletInput'))
-        min = 5
-        for place in Place.objects.all():
-            if place.location == location:
-                t1 = abs(place.avg_busy_rating - busy_rating)
-                t2 = abs(place.avg_wifi_outlet_rating - wifi_outlet_rating)
-                diff = (t1 + t2)/2
-                if min > diff:
-                    min = diff
-                    suggested_place  = place.objects.get_suggested_place(location, busy_rating, wifi_outlet_rating)
-            # algorithm to detemrine which spot here
-            return render(request, 'suggestion.html', {'suggested_place': suggested_place})
+        location = request.POST.get('locationInput')
 
-    def get_queryset(self):
-        return Place.objects.all
+        min_diff = float('inf')
+        suggested_place = None
+
+        for place in Place.objects.filter(location=location, admin_approved=True):
+            t1 = abs(place.avg_busy_rating - busy_rating)
+            t2 = abs(place.avg_wifi_outlet_rating - wifi_outlet_rating)
+            diff = (t1 + t2) / 2
+
+            if min_diff > diff:
+                min_diff = diff
+                suggested_place = place
+
+        return render(request, 'suggestion.html', context={'suggested_place': suggested_place})
     
 def suggest_place(request):
     if request.user.is_authenticated:
