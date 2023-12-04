@@ -1,4 +1,56 @@
 {% load socialaccount %}
+<style>
+    .container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #col-1 {
+    position: fixed;
+    width: 50%;
+    left: 0;
+    height: 100%;
+    background-color: #282828;
+    z-index: 1
+  }
+  
+  #col-2 {
+    position: fixed;
+    width: 50%;
+    right:0;
+    height: 100%;
+    background-color: #0080ff;
+    z-index: 0
+  }
+  .pagecontainer{
+    display: flex;
+    flex-direction: row;
+  }
+  input[type=text] {
+    width: 80%;
+    height: 10%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+  }
+
+  .homecontainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+body{
+  background: white url("https://img.freepik.com/free-vector/white-abstract-background_23-2148817571.jpg?size=626&ext=jpg&ga=GA1.1.34264412.1699228800&semt=ais");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+  
+
+</style>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,28 +58,45 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Study Spot Preferences</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'polls/centered.css' %}">
+    <link rel="stylesheet" href="../static/page.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="{% url 'home' %}">Hoos Studying</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link" href="{% url 'places' %}">places</a>
-              <a class="nav-link" href="{% url 'recommend' %}">recommend</a>
-              <a class="nav-link" href="{% url 'suggest' %}">suggest</a>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link"  href="{% url 'places' %}">Places</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{% url 'suggest' %}">Suggest</a>
+                </li>
+                <li class="nav-item">
+                    <a id="approvalLink" class="nav-link" hidden = "true" href="{% url 'approval' %}">Approval</a>
+                </li>
+                <li class="nav-item">
+                    <a id="recommend" class="nav-link" href="{% url 'recommend' %}">Recommend</a>
+                </li>
+            </ul>
+            
             </div>
-          </div>
         </div>
-    </nav>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a   class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </nav>
 </body>
 <body>
     <div class="container">
-        <h1>Recommend a Study Spot</h1>
+        
+        <h1>Recommendation</h1>
+        <h4>Our algorithm will recommend you a spot based on your preferences below!</h4>
         <form action="" method="post">
             {% csrf_token %}
             <div class="mb-3">
@@ -48,9 +117,12 @@
                 <label for="wifiOutletInput" class="form-label">Preffered Access to WiFi and Outlets (1-5):</label>
                 <input type="number" class="form-control" id="wifiOutletInput" name="wifiOutletInput" placeholder="Enter rating (1-5)" min="1" max="5" required>
             </div>
-
-            <button type="submit" class="btn btn-secondary">Submit</button>
+            <center>
+                <button type="submit" class="btn btn-secondary">Submit</button>
+            </center>
+       
         </form>
-    </div>
+    
+</div>
 </body>
 </html>
