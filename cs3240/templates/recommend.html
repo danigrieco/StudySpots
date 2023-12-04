@@ -97,7 +97,7 @@ body{
         
         <h1>Recommendation</h1>
         <h4>Our algorithm will recommend you a spot based on your preferences below!</h4>
-        <form action="" method="post">
+        <form action="{% url 'recommend' %}" method="post">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="locationInput" class="form-label">Select the location:</label>
